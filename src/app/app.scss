@@ -1,0 +1,21 @@
+mat-toolbar {
+  background-color: rgb(161, 161, 233);
+  color: rgb(255, 255, 255);
+}
+
+.mat-drawer-container {
+  height: 100dvh;
+}
+
+.mat-drawer-side {
+  border-right-color: gray;
+}
+
+.mat-drawer {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+}
+
+.menu-icon {
+  cursor: pointer;
+}
