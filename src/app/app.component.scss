@@ -66,3 +66,15 @@ mat-toolbar-row {
   padding-inline: 56px;
   padding-top: 16px;
 }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+
+  img {
+    width: 90%;
+    height: 100%;
+  }
+}
