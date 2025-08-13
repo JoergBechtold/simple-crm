@@ -11,15 +11,6 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user.class';
 
-// Dein User-Interface
-// export interface User {
-//   birthDate: number;
-//   city: string;
-//   firstName: string;
-//   lastName: string;
-//   street: string;
-//   zipCode: number;
-// }
 
 @Component({
   standalone: true,
@@ -39,21 +30,7 @@ export class UserComponent {
   readonly dialog = inject(MatDialog);
   readonly firestore = inject(Firestore);
 
-  // **Hier ist die entscheidende Änderung:**
-  // Das Observable wird direkt bei der Deklaration initialisiert.
-  // Hier ist die inject()-Funktion gültig und collectionData wird korrekt aufgerufen.
   users$: Observable<User[]> = collectionData(collection(this.firestore, 'users')) as Observable<User[]>;
-
-  // Die ngOnInit()-Methode ist jetzt nicht mehr zwingend nötig,
-  // da das Observable bereits initialisiert ist. Du kannst es aber verwenden,
-  // um das Observable zu abonnieren, wenn du die Daten direkt in der Komponente
-  // benötigst. Die sauberste Lösung ist aber oft, die async-Pipe im Template zu verwenden.
-
-  // ngOnInit(): void {
-  //   this.users$.subscribe(changes => {
-  //     console.log('Received changes from DB', changes);
-  //   });
-  // }
 
   openDialog() {
     this.dialog.open(DialogAddUserComponent);
