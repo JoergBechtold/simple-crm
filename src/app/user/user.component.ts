@@ -36,10 +36,8 @@ export class UserComponent {
 
 
   ngOnInit(): void {
-    // Abonniere das Observable, um die Daten zu erhalten und zu loggen
     this.users$.subscribe(changes => {
       console.log('Received changes from DB:', changes);
-      // console.log('First user\'s ID:', changes[0]?.customIdName);
     });
   }
   openDialog() {
