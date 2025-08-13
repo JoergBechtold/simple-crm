@@ -1,4 +1,4 @@
-<mat-card>
+<!-- <mat-card>
     <mat-card-content>
         <table class="user-table">
             <tr>
@@ -24,6 +24,29 @@
 
 
 
+
+<button (click)="openDialog()" class="add-user-btn" mat-fab matTooltip="Add user" [matTooltipPosition]="'above'">
+    <mat-icon>add</mat-icon>
+</button> -->
+
+<mat-card>
+    <mat-card-content>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Stadt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users$ | async">
+                    <td>{{ user.firstName }} {{ user.lastName }}</td>
+                    <td>{{ user.city }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-card-content>
+</mat-card>
 
 <button (click)="openDialog()" class="add-user-btn" mat-fab matTooltip="Add user" [matTooltipPosition]="'above'">
     <mat-icon>add</mat-icon>
