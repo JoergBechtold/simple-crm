@@ -1,13 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { AsyncPipe } from '@angular/common';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+
 
 
 @Component({
@@ -24,11 +22,9 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'simple-crm';
-  firestore: Firestore = inject(Firestore);
-  items$: Observable<any[]>;
+
+
 
   constructor() {
-    const aCollection = collection(this.firestore, 'items')
-    this.items$ = collectionData(aCollection);
   }
 }

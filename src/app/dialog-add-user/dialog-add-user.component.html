@@ -37,8 +37,7 @@
 
         <mat-form-field appearance="outline">
             <mat-label>City</mat-label>
-            <input #city="ngModel" type="text" [(ngModel)]="user.city" matInput [pattern]="'[a-zA-Z]*'">
-            <mat-error *ngIf="city.errors?.['pattern']">Only text allowed</mat-error>
+            <input #city="ngModel" type="text" [(ngModel)]="user.city" matInput>
         </mat-form-field>
     </div>
 
