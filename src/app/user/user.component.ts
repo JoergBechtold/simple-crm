@@ -10,6 +10,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user.class';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,8 @@ import { User } from '../../models/user.class';
     MatTooltipModule,
     MatDialogModule,
     MatCardModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -30,8 +32,16 @@ export class UserComponent {
   readonly dialog = inject(MatDialog);
   readonly firestore = inject(Firestore);
 
-  users$: Observable<User[]> = collectionData(collection(this.firestore, 'users')) as Observable<User[]>;
+  users$: Observable<User[]> = collectionData(collection(this.firestore, 'users'), { idField: 'customIdName' }) as Observable<User[]>;
 
+
+  ngOnInit(): void {
+    // Abonniere das Observable, um die Daten zu erhalten und zu loggen
+    this.users$.subscribe(changes => {
+      console.log('Received changes from DB:', changes);
+      // console.log('First user\'s ID:', changes[0]?.customIdName);
+    });
+  }
   openDialog() {
     this.dialog.open(DialogAddUserComponent);
   }

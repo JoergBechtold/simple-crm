@@ -1,0 +1,41 @@
+.user-detail-header {
+  min-height: 250px;
+  background-color: aquamarine;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 15px;
+  flex-direction: row;
+
+  img {
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+  }
+}
+
+.user-details {
+  margin-left: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100px;
+
+  h2 {
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.user-address {
+  mat-card-title {
+    font-weight: 500;
+  }
+}
