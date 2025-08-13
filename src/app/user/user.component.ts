@@ -6,11 +6,21 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { MatCardModule } from '@angular/material/card';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
+
+export interface User {
+  // Annahme: Deine Benutzer haben ein 'name'-Feld und ein 'id'-Feld
+  id?: string;
+  name: string;
+  // ... weitere Felder
+}
 
 
 
 @Component({
+  standalone: true,
   selector: 'app-user',
   imports: [MatButtonModule,
     MatIconModule,
@@ -22,6 +32,19 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class UserComponent {
   readonly dialog = inject(MatDialog);
+  readonly firestore = inject(Firestore);
+
+  users$!: Observable<User[]>;
+
+  ngOnInit(): void {
+    const usersCollection = collection(this.firestore, 'users');
+    this.users$ = collectionData(usersCollection, { idField: 'id' }) as Observable<User[]>;
+
+    this.users$.subscribe(changes => {
+      console.log('Received changes from DB', changes);
+    });
+  }
+
 
 
   openDialog() {
