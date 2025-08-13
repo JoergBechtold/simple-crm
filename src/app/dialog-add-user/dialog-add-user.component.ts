@@ -10,6 +10,7 @@ import { User } from '../../models/user.class';
 import { CommonModule } from '@angular/common';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 
 
@@ -24,7 +25,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatFormFieldModule,
     MatDatepickerModule,
     CommonModule,
-    MatProgressBarModule],
+    MatProgressBarModule,
+    MatDialogModule],
   templateUrl: './dialog-add-user.component.html',
   styleUrl: './dialog-add-user.component.scss',
   providers: [provideNativeDateAdapter()],
@@ -36,6 +38,8 @@ export class DialogAddUserComponent {
   private firestore: Firestore = inject(Firestore);
   isLoading = false;
 
+  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>) { }
+
   saveUser() {
     this.user.birthDate = this.birthDate.getTime();
     this.isLoading = true;
@@ -43,6 +47,7 @@ export class DialogAddUserComponent {
     addDoc(usersCollection, this.user.toJson())
       .then(() => {
         this.isLoading = false;
+        this.dialogRef.close();
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
