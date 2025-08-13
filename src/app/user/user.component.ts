@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 
 
+
 @Component({
   selector: 'app-user',
   imports: [MatButtonModule, MatIconModule, MatTooltipModule, MatDialogModule],
@@ -15,6 +16,7 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 })
 export class UserComponent {
   readonly dialog = inject(MatDialog);
+
 
   openDialog() {
     this.dialog.open(DialogAddUserComponent)
