@@ -9,6 +9,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { User } from '../../models/user.class';
 import { CommonModule } from '@angular/common';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 @Component({
@@ -21,7 +23,8 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    CommonModule],
+    CommonModule,
+    MatProgressBarModule],
   templateUrl: './dialog-add-user.component.html',
   styleUrl: './dialog-add-user.component.scss',
   providers: [provideNativeDateAdapter()],
@@ -30,23 +33,16 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 export class DialogAddUserComponent {
   user = new User();
   birthDate!: Date;
-  firestore: Firestore = inject(Firestore);
-
-  constructor() {
-
-  }
+  private firestore: Firestore = inject(Firestore);
+  isLoading = false;
 
   saveUser() {
     this.user.birthDate = this.birthDate.getTime();
-    console.log('Current user is', this.user);
-
-    // Hole die Collection-Referenz mit der neuen Syntax
+    this.isLoading = true;
     const usersCollection = collection(this.firestore, 'users');
-
-    // Verwende addDoc, um das Dokument hinzuzufügen
     addDoc(usersCollection, this.user.toJson())
-      .then((docRef) => {
-        console.log("Document successfully written with ID: ", docRef.id);
+      .then(() => {
+        this.isLoading = false;
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
