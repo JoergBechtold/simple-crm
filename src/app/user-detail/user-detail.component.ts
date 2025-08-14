@@ -10,6 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 
 @Component({
@@ -21,12 +25,13 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    MatMenuModule],
+    MatMenuModule,
+    MatDialogModule],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
-
+  private dialog = inject(MatDialog);
   private route = inject(ActivatedRoute);
   private firestore = inject(Firestore);
 
@@ -40,10 +45,10 @@ export class UserDetailComponent {
 
 
   editMenu() {
-
+    this.dialog.open(DialogEditAddressComponent);
   }
 
   editUser() {
-
+    this.dialog.open(DialogEditUserComponent);
   }
 }
