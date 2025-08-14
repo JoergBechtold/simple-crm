@@ -16,6 +16,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-add-user',
+  standalone: true,
   imports: [MatDialogTitle,
     MatDialogContent,
     FormsModule,
