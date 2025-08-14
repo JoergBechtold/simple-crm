@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -40,12 +41,12 @@ export class UserDetailComponent {
     switchMap(params => {
       const userId = params.get('id');
       const userDoc = doc(this.firestore, `users/${userId}`);
-      return docData(userDoc) as Observable<User>;
+      return docData(userDoc, { idField: 'customIdName' }) as Observable<User>;
     })
   );
 
   editMenu() {
-    this.user$.subscribe(user => {
+    this.user$.pipe(take(1)).subscribe(user => {
       this.dialog.open(DialogEditAddressComponent, {
         data: user
       });
@@ -53,7 +54,7 @@ export class UserDetailComponent {
   }
 
   editUser() {
-    this.user$.subscribe(user => {
+    this.user$.pipe(take(1)).subscribe(user => {
       this.dialog.open(DialogEditUserComponent, {
         data: user
       });

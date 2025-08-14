@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { User } from '../../models/user.class';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { doc, Firestore, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -34,10 +35,29 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './dialog-edit-address.component.scss'
 })
 export class DialogEditAddressComponent {
-  public user: User = inject(MAT_DIALOG_DATA);
+  public user: User;
+  public userData: User = inject(MAT_DIALOG_DATA);
   public dialogRef: MatDialogRef<DialogEditAddressComponent> = inject(MatDialogRef);
+  private firestore: Firestore = inject(Firestore);
 
   isLoading = false;
 
-  saveAddressDialog() { }
+  constructor() {
+    this.user = new User(this.userData);
+  }
+
+  async saveAddressDialog() {
+    this.isLoading = true;
+
+    const userDocRef = doc(this.firestore, `users/${this.user.customIdName}`);
+
+    try {
+      await updateDoc(userDocRef, this.user.toJson());
+      this.isLoading = false;
+      this.dialogRef.close();
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      this.isLoading = false;
+    }
+  }
 }

@@ -34,13 +34,6 @@ export class UserComponent {
 
   users$: Observable<User[]> = collectionData(collection(this.firestore, 'users'), { idField: 'customIdName' }) as Observable<User[]>;
 
-
-  // ngOnInit(): void {
-  //   this.users$.subscribe(changes => {
-  //     console.log('Received changes from DB:', changes);
-  //   });
-  // }
-
   openDialog() {
     this.dialog.open(DialogAddUserComponent);
   }

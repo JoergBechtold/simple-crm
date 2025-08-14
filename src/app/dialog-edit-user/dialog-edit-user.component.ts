@@ -14,6 +14,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { User } from '../../models/user.class';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { doc, Firestore, updateDoc } from '@angular/fire/firestore';
+
+
 
 
 @Component({
@@ -29,14 +33,38 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDatepickerModule,
     CommonModule,
     MatProgressBarModule],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-edit-user.component.html',
   styleUrl: './dialog-edit-user.component.scss'
 })
 export class DialogEditUserComponent {
-  public user: User = inject(MAT_DIALOG_DATA);
+  public user: User;
+  private userData: any = inject(MAT_DIALOG_DATA);
   public dialogRef: MatDialogRef<DialogEditUserComponent> = inject(MatDialogRef);
+  private firestore: Firestore = inject(Firestore);
+
 
   isLoading = false;
+  birthDate: Date;
 
-  saveUserDialog() { }
+  constructor() {
+    this.user = new User(this.userData);
+    this.birthDate = new Date(this.user.birthDate);
+  }
+
+  async saveUserDialog() {
+    this.isLoading = true;
+    this.user.birthDate = this.birthDate.getTime();
+
+    const userDocRef = doc(this.firestore, `users/${this.user.customIdName}`);
+
+    try {
+      await updateDoc(userDocRef, this.user.toJson());
+      this.isLoading = false;
+      this.dialogRef.close();
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      this.isLoading = false;
+    }
+  }
 }
