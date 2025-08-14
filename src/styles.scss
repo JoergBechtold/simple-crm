@@ -20,3 +20,18 @@ body {
 .full-width {
   width: 100%;
 }
+
+mat-form-field {
+  margin-top: 10px;
+}
+
+.diolog-container {
+  position: relative;
+
+  mat-progress-bar {
+    position: absolute;
+    left: -24px;
+    right: -24px;
+    top: 0px;
+  }
+}
