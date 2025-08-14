@@ -1,5 +1,15 @@
 <div *ngIf="user$ | async as user">
+
     <mat-card class="user-detail-header">
+        <button matTooltip="Edit User" [matMenuTriggerFor]="userMenu" [matTooltipPosition]="'above'" mat-icon-button
+            class="user-menu-icon-btn">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #userMenu="matMenu">
+            <button (click)="editUser()" mat-menu-item>Edit</button>
+        </mat-menu>
+
         <img src="../../../img/profile.png" alt="user profile image">
         <div class="user-details">
             <h2>{{user.firstName }} {{user.lastName }}</h2>
@@ -8,6 +18,14 @@
     </mat-card>
 
     <mat-card class="mt-32 user-address">
+        <button matTooltip="Edit Menu" [matMenuTriggerFor]="addressMenu" [matTooltipPosition]="'above'" mat-icon-button
+            class="user-menu-icon-btn">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #addressMenu="matMenu">
+            <button (click)="editMenu()" mat-menu-item>Edit</button>
+        </mat-menu>
+
         <mat-card-header>
             <mat-card-title>Address</mat-card-title>
         </mat-card-header>

@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
+  standalone: true,
   selector: 'app-root',
   imports: [MatToolbarModule,
     MatSidenavModule,
